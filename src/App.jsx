@@ -1,6 +1,9 @@
 import './App.scss';
+import Navbar from './components/navbar/Navbar';
+import BlogPage from './pages/Blog/BlogPage';
 import Home from './pages/home/Home';
 import Login from './pages/login/Login';
+import NewBlog from './pages/newBlog/NewBlog';
 import Register from './pages/register/Register';
 import {
   createBrowserRouter,
@@ -17,7 +20,15 @@ function App(){
   const router = createBrowserRouter([
     {
       path: "/",
-      element: currentUser?<Home/>:<Navigate to={"/login"} replace={true}></Navigate>
+      element: currentUser?<><Navbar/><Home/></>:<Navigate to={"/login"} replace={true}></Navigate>
+    },
+    {
+      path: "/new-blog",
+      element: currentUser?<><Navbar/><NewBlog/></>:<Navigate to={"/login"} replace={true}></Navigate>
+    },
+    {
+      path: "/blog/:id",
+      element: currentUser?<><Navbar/><BlogPage/></>:<Navigate to={"/login"} replace={true}></Navigate>
     },
     {
       path: "/login",

@@ -1,12 +1,15 @@
-import Navbar from '../../components/navbar/Navbar';
 import Blog from '../../components/blog/Blog';
 import './home.scss';
 
 const Home = () => {
   return (
     <div className='home'>
-        <Navbar/>
         <div className='blogs'>
+            <Blog/>
+            <Blog/>
+            <Blog/>
+            <Blog/>
+            <Blog/>
             <Blog/>
         </div>
     </div>

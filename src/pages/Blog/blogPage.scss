@@ -1,0 +1,58 @@
+.blogpage{
+    padding: 30px 200px;
+    .container{
+
+      .header{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .userInfo{
+            display: flex;
+            flex-direction: column;
+            .author{
+                margin: 0;
+                margin-bottom: 5px;
+                font-size: 15px;
+                font-weight: 600;
+            }
+            .time{
+                margin: 0;
+                color: grey;
+                font-size: 15px;
+                font-weight: 200;
+            }
+        }
+
+        .icons{
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            .deleteIcon{
+                color: red !important;
+                cursor: pointer;
+            }
+            .icon{
+                color: rgb(2, 255, 2);
+                cursor: pointer;
+            }
+        }
+
+      }
+
+      .body{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        h1{
+            font-size: 4rem;
+        }
+        p{
+            font-size: 1.5rem;
+            text-align: justify;
+            line-height: 3ch;
+        }
+      }
+
+    }
+}
