@@ -1,14 +1,15 @@
 .home{
-    background-color: #E7EBF0;
-    // background-color: white;
-    // background: rgb(212,120,247);
-    // background: linear-gradient(90deg, rgb(234, 176, 255) 8%, rgba(255,210,252,1) 56%);
+    background-color: white;
     height: calc(100vh - 60px);
     overflow-y: auto;
     .blogs{
         padding: 30px 50px;
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
         gap: 20px;
+
+        .spinner{
+            margin-left: 45vw;
+        }
     }
 }

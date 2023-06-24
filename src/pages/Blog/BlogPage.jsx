@@ -1,49 +1,109 @@
 import './blogPage.scss';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
+import { Alert, CircularProgress, Snackbar } from '@mui/material';
+import axios from 'axios';
+import { useContext, useEffect, useState } from 'react';
+import { AuthContext } from '../../context/authContext/AuthContext';
+import { deleteBlog } from '../../context/BlogContext/apiCalls';
+import { useNavigate } from 'react-router-dom';
 
 const BlogPage = () => {
+    const { user } = useContext(AuthContext);
+    const idRef = window.location.pathname.split('/')[2];
+    const [blogData, setBlogData] = useState(null);
+    const [error, setError] = useState(false);
+    const [errorMsg, setErrorMsg] = useState("");
+    const [success, setSuccess] = useState(false);
+    const [successMsg, setSuccessMsg] = useState("");
+
+    const navigate = useNavigate();
+    
+    useEffect(()=>{
+        async function getBlogDetails(id){
+            try{
+                const res = await axios.get(`http://localhost:8000/blogs/${id}`);
+                setBlogData(res.data);
+            }catch(err){
+                setError(true);
+                setErrorMsg("An Error occured. Please refresh the page.")
+            }
+        }
+        getBlogDetails(idRef);
+    }, [idRef])
+
+    function handleDeleteBlog(){
+        deleteBlog(blogData._id, user.id).then(res=>{
+            if(res.status === 201){
+                setSuccess(true);
+                setSuccessMsg("Blog Deleted successfully");
+                setTimeout(()=>{
+                    navigate('/');
+                }, 2000);
+            }else{
+                setError(true);
+                setErrorMsg("Error while deleting blog. Please retry");
+            }
+        }).catch(err=>{
+            setError(true);
+            setErrorMsg("Error while deleting blog. Please retry");
+        })
+    }
+
+    function handleEditContent(){
+        navigate(`/update-blog/${idRef}`);
+    }
+
   return (
     <div className='blogpage'>
-        <div className='container'>
-            <div className='header'>
-                <div className='userInfo'>
-                    <p className='author'>KunalBose47</p>
-                    <p className='time'>2:21 AM · Jun 24, 2023</p>
+        {!blogData ? <CircularProgress className='spinner'/>: 
+            <div className='container'>
+                <div className='header'>
+                    <div className='userInfo'>
+                        <p className='time'>{blogData.createdAt}</p>
+                    </div>
+                    <div className='icons'>
+                        {user.id === blogData.author ?
+                        <>
+                            <DeleteIcon className='deleteIcon' onClick={handleDeleteBlog}/>
+                            <EditIcon className='icon' onClick={handleEditContent}/>
+                        </>: <></>    
+                        }
+                    </div>
                 </div>
-                <div className='icons'>
-                    <DeleteIcon className='deleteIcon'/>
-                    <EditIcon className='icon'/>
+                <div className='body'>
+                    <h1>{blogData.title}</h1>
+                    <p>
+                        {blogData.content}
+                    </p>
                 </div>
             </div>
-            <div className='body'>
-                <h1>useState in React: A complete guide</h1>
-                <p>
-                    Editor's note: This React useState Hook tutorial was last updated on 7 February 2023 to include more information on React useStateand to reflect updates to React. Check out our React Hooks reference guide and cheat sheet for more information about React Hooks.
-
-                    The React useState Hook allows you to have state variables in functional components. You pass the initial state to this function, and it returns a variable with the current state value (not necessarily the initial state) and another function to update this value.
-
-                    This tutorial serves as a complete guide to the useState Hook in React, the equivalent of this.state/this.setSate for functional components.
-
-                    We'll cover the following in detail:
-
-                    Class and functional components in React
-                    What is the useState Hook?
-                    What can useState hold?
-                    Updating objects and arrays in useState
-                    What does the React.useState Hook do?
-                    Declaring state in React
-                    Using React Hooks to update the state
-                    Implementing an object as a state variable with useState Hook
-                    How to update state in a nested object in React with Hooks
-                    Working with multiple state variables or one state object
-                    Rules for using useState
-                    useState vs. useEffect
-                    Understanding the useReducer Hook
-                    If you're just getting started with React Hooks and looking for a visual guide, check out the video tutorial below:
-                </p>
-            </div>
-        </div>
+        }
+        
+        <Snackbar
+            open={error}
+            autoHideDuration={2000}
+            onClose={()=>{
+                setTimeout(()=>{
+                  setError(false);
+                }, 2000)
+            }}
+            anchorOrigin={{vertical: "top", horizontal: "right"}}
+        >
+            <Alert severity="error">{errorMsg}</Alert>
+        </Snackbar>
+        <Snackbar
+            open={success}
+            autoHideDuration={2000}
+            onClose={()=>{
+                setTimeout(()=>{
+                  setSuccess(false);
+                }, 2000)
+            }}
+            anchorOrigin={{vertical: "top", horizontal: "right"}}
+        >
+            <Alert severity="success">{successMsg}</Alert>
+        </Snackbar>
     </div>
   )
 }

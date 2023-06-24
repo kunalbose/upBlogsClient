@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import './login.scss';
-import { checkUserName, login } from '../../context/authContext/apiCalls';
+import { login } from '../../context/authContext/apiCalls';
 import { useContext, useState } from 'react';
 import { AuthContext } from '../../context/authContext/AuthContext';
 import { Alert, Snackbar } from '@mui/material';

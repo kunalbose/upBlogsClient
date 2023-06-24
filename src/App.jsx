@@ -9,12 +9,10 @@ import Register from './pages/register/Register';
 import {
   createBrowserRouter,
   RouterProvider,
-  Route,
-  Link,
-  Outlet,
   Navigate,
 } from "react-router-dom";
 import { AuthContext } from './context/authContext/AuthContext';
+import UpdateBlog from './pages/updateBlog/UpdateBlog';
 
 function App(){
   const {user: currentUser} = useContext(AuthContext);
@@ -27,6 +25,10 @@ function App(){
     {
       path: "/new-blog",
       element: currentUser?<><Navbar/><NewBlog/></>:<Navigate to={"/login"} replace={true}></Navigate>
+    },
+    {
+      path: "/update-blog/:id",
+      element: currentUser?<><Navbar/><UpdateBlog/></>:<Navigate to={"/login"} replace={true}></Navigate>
     },
     {
       path: "/blog/:id",

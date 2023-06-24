@@ -1,23 +1,22 @@
+import { useNavigate } from 'react-router-dom';
 import './blog.scss';
 
-const Blog = () => {
+const Blog = ({blog}) => {
+  const navigate = useNavigate();
+  function handleBlogClick(){
+    navigate(`/blog/${blog._id}`);
+  } 
+
   return (
-    <div className='blog'>
-      <h1>Blog Title</h1>
+    <div className='blog' onClick={handleBlogClick}>
+      <h1>{blog?.title}</h1>
       <div className='blogInfo'>
-        <p className='author'>KunalBose47</p>
-        <p className='time'>Posted 2 hours ago</p>
+        <p className='time'>{blog?.createdAt}</p>
       </div>
       <p>
-        {`Lorem Ipsum is simply dummy text of the printing and typesetting industry.
-         Lorem Ipsum has been the industry's standard dummy text ever since the 1500s,
-          when an unknown printer took a galley of type and scrambled it to make a type specimen book.
-           It has survived not only five centuries, but also the leap into electronic typesetting, 
-           remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset 
-           sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus 
-           PageMaker including versions of Lorem Ipsum.`.slice(0, 50)+`...`}
+        {blog?.content.slice(0, 25)+`...`}
       </p>
-      <button>Read More</button>
+      <button onClick={handleBlogClick}>Read More</button>
     </div>
   )
 }
