@@ -1,7 +1,16 @@
 import { Link } from 'react-router-dom'
 import './navbar.scss'
+import { useContext } from 'react'
+import { AuthContext } from '../../context/authContext/AuthContext'
+import { handleLogout } from '../../context/authContext/apiCalls'
 
 const Navbar = () => {
+  const { user, dispatch } = useContext(AuthContext);
+
+  function logout(){
+    handleLogout(dispatch);
+  }
+
   return (
     <div className='navbar'>
         <div className='container'>
@@ -13,8 +22,8 @@ const Navbar = () => {
                 <Link to="/new-blog" className='link'>
                   <span>Create new Blog</span>
                 </Link>
-                <span>Username</span>
-                <img src='' alt='profile-pic'/>
+                <span>{user.username}</span>
+                <span onClick={logout} style={{color: "red"}}>Logout</span>
             </div>
 
         </div>

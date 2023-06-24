@@ -1,3 +1,4 @@
+import { useContext } from 'react';
 import './App.scss';
 import Navbar from './components/navbar/Navbar';
 import BlogPage from './pages/Blog/BlogPage';
@@ -13,9 +14,10 @@ import {
   Outlet,
   Navigate,
 } from "react-router-dom";
+import { AuthContext } from './context/authContext/AuthContext';
 
 function App(){
-  const currentUser = true;
+  const {user: currentUser} = useContext(AuthContext);
 
   const router = createBrowserRouter([
     {
