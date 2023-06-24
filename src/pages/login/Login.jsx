@@ -48,6 +48,12 @@ const Login = () => {
                     <input type='password' placeholder='Password' onChange={(e)=>setPassword(e.target.value)} value={password}/>
                     <button type='submit'>Login</button>
                 </form>
+                <div className='mobile-register-jump'>
+                    <span>Don't have an account?</span>
+                    <Link to="/register">
+                        <button>Register</button>
+                    </Link>
+                </div>
             </div>
         </div>
         <Snackbar

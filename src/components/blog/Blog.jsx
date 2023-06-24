@@ -1,5 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import './blog.scss';
+import { formatDate, fromNowTime } from '../../utils/formatDate';
+import { Tooltip } from '@mui/material';
 
 const Blog = ({blog}) => {
   const navigate = useNavigate();
@@ -8,10 +10,12 @@ const Blog = ({blog}) => {
   } 
 
   return (
-    <div className='blog' onClick={handleBlogClick}>
+    <div className='blog'>
       <h1>{blog?.title}</h1>
       <div className='blogInfo'>
-        <p className='time'>{blog?.createdAt}</p>
+      <Tooltip title={formatDate(blog?.createdAt)}>
+        <p className='time'>{fromNowTime(blog?.createdAt)}</p>
+      </Tooltip>
       </div>
       <p>
         {blog?.content.slice(0, 25)+`...`}

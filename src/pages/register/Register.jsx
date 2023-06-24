@@ -91,6 +91,12 @@ const Register = () => {
                     <input type='password' placeholder='Password' onChange={(e)=>setPassword(e.target.value)} value={password}/>
                     <button type='submit'>Register</button>
                 </form>
+                <div className='sm-login-button'>
+                    <span>Already have an account?</span>
+                    <Link to="/login">
+                        <button>Login</button>
+                    </Link>
+                </div>
             </div>
         </div>
         <Snackbar

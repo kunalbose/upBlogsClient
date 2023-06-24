@@ -7,6 +7,7 @@ import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../context/authContext/AuthContext';
 import { deleteBlog } from '../../context/BlogContext/apiCalls';
 import { useNavigate } from 'react-router-dom';
+import { formatDate } from '../../utils/formatDate';
 
 const BlogPage = () => {
     const { user } = useContext(AuthContext);
@@ -60,7 +61,7 @@ const BlogPage = () => {
             <div className='container'>
                 <div className='header'>
                     <div className='userInfo'>
-                        <p className='time'>{blogData.createdAt}</p>
+                        <p className='time'>{formatDate(blogData.createdAt)}</p>
                     </div>
                     <div className='icons'>
                         {user.id === blogData.author ?
