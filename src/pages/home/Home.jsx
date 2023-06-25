@@ -3,6 +3,7 @@ import axios from "axios";
 import Blog from '../../components/blog/Blog';
 import './home.scss';
 import { Alert, CircularProgress, Snackbar } from '@mui/material';
+import { BASE_URL } from '../../utils/helper';
 
 const Home = () => {
   const [blogs, setBlogs] = useState([]);
@@ -11,7 +12,7 @@ const Home = () => {
   useEffect(()=>{
     async function getBlogs(){
       try{
-        const blogs = await axios.get("http://localhost:8000/blogs");
+        const blogs = await axios.get(`${BASE_URL}/blogs`);
         setBlogs(blogs.data);
       }catch(err){
         setError(true);

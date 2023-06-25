@@ -1,12 +1,13 @@
 import axios from "axios";
+import { BASE_URL } from "../../utils/helper";
 
 export async function createNewBlog(title, content, userId){
-    const res = await axios.post("http://localhost:8000/blogs", {userId, title, content});
+    const res = await axios.post(`${BASE_URL}/blogs`, {userId, title, content});
     return {data: res.data, status: res.status};
 }
 
 export async function deleteBlog(blogId, userId){
-    const res = await axios.delete(`http://localhost:8000/blogs/${blogId}`, {
+    const res = await axios.delete(`${BASE_URL}/blogs/${blogId}`, {
         headers: {
             userId
         }
@@ -15,6 +16,6 @@ export async function deleteBlog(blogId, userId){
 }
 
 export async function updateBlog(blogId, title, content, userId){
-    const res = await axios.patch(`http://localhost:8000/blogs/${blogId}`, {title, content, userId});
+    const res = await axios.patch(`${BASE_URL}/blogs/${blogId}`, {title, content, userId});
     return {data: res.data, status: res.status};
 }

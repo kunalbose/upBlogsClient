@@ -6,6 +6,7 @@ import { AuthContext } from '../../context/authContext/AuthContext';
 import { updateBlog } from '../../context/BlogContext/apiCalls';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { BASE_URL } from '../../utils/helper';
 
 const UpdateBlog = () => {
 
@@ -24,7 +25,7 @@ const UpdateBlog = () => {
   useEffect(()=>{
     async function getBlogData(id){
         try{
-            const res = await axios.get(`http://localhost:8000/blogs/${id}`);
+            const res = await axios.get(`${BASE_URL}/blogs/${id}`);
             setTitle(res.data.title);
             setContent(res.data.content);
         }catch(err){
